@@ -2,7 +2,7 @@ from model_train_test import ModelTrainTest
 
 if __name__ == '__main__':
     # Parameters:
-    train_mode = True
+    train_mode = False
     render = not train_mode
     map_size = 4  # 4x4 or 8x8
     RL_hyperparams = {

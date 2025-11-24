@@ -80,8 +80,8 @@ class DQNAgent:
         dones = dones.unsqueeze(1)
 
         # Q(s, a) from main network
-        predicted_q = self.main_network(states) # Forward pass through the main network to find Q-values
-        predicted_q = predicted_q.gather(dim=1, index=actions) # Selecting the Q-values of the actions that
+        predicted_q = self.main_network(states)  # forward pass through the main network to find the Q-values of the states
+        predicted_q = predicted_q.gather(dim=1,index=actions)  # selecting the Q-values of the actions that were actually taken
 
         # Computing the maximum Q-value for the next states using the target network
         with torch.no_grad():

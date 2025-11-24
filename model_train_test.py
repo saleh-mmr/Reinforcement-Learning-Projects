@@ -45,7 +45,7 @@ class ModelTrainTest:
 
     def state_preprocess(self, state: int, num_states: int):
         """
-        Convert an state to a tensor and basically it encodes the state into
+        Convert a state to a tensor, and basically it encodes the state into
         an onehot vector. For example, the return can be something like tensor([0,0,1,0,0])
         which could mean agent is at state 2 from total of 5 states.
 
@@ -55,17 +55,32 @@ class ModelTrainTest:
         return onehot_vector
 
     def train(self):
-        """
-        Reinforcement learning training loop.
-        """
-
         total_steps = 0
         self.reward_history = []
 
-        # Training loop over episodes
         for episode in range(1, self.max_episodes + 1):
+
+            # --- Enable rendering only for first 10 and last 10 episodes ---
+            if episode <= 10 or episode > self.max_episodes - 10:
+                render_mode = "human"
+            else:
+                render_mode = None
+
+            # Recreate env with correct render mode
+            self.env = gym.make(
+                'FrozenLake-v1',
+                map_name=f"{self.map_size}x{self.map_size}",
+                is_slippery=False,
+                max_episode_steps=self.max_steps,
+                render_mode=render_mode
+            )
+            self.env.metadata['render_fps'] = self.render_fps
+
+            # ---------------------------------------------------------------
+
             state, _ = self.env.reset(seed=seed)
             state = self.state_preprocess(state, num_states=self.num_states)
+
             done = False
             truncation = False
             step_size = 0
@@ -81,7 +96,6 @@ class ModelTrainTest:
                 if len(self.agent.replay_memory) > self.batch_size and sum(self.reward_history) > 0:
                     self.agent.learn(self.batch_size, (done or truncation))
 
-                    # Update target-network weights
                     if total_steps % self.update_frequency == 0:
                         self.agent.hard_update()
 
@@ -89,26 +103,23 @@ class ModelTrainTest:
                 episode_reward += reward
                 step_size += 1
 
-            # Appends for tracking history
-            self.reward_history.append(episode_reward)  # episode reward
+            # log history
+            self.reward_history.append(episode_reward)
             total_steps += step_size
 
-            # Decay epsilon at the end of each episode
+            # decay epsilon
             self.agent.update_epsilon()
 
-            # -- based on interval
+            # save model
             if episode % self.save_interval == 0 and episode == self.max_episodes:
                 self.agent.save(self.save_path + '_' + f'{episode}' + '.pth')
                 if episode != self.max_episodes:
                     self.plot_training(episode)
                 print('\n~~~~~~Interval Save: Model saved.\n')
 
-            result = (f"Episode: {episode}, "
-                      f"Total Steps: {total_steps}, "
-                      f"Ep Step: {step_size}, "
-                      f"Raw Reward: {episode_reward:.2f}, "
-                      f"Epsilon: {self.agent.epsilon_max:.2f}")
-            print(result)
+            print(
+                f"Episode: {episode}, Total Steps: {total_steps}, Ep Step: {step_size}, Reward: {episode_reward:.2f}, Epsilon: {self.agent.epsilon_max:.2f}")
+
         self.plot_training(episode)
 
     def test(self, max_episodes):
@@ -159,7 +170,7 @@ class ModelTrainTest:
 
         # Only save as file if last episode
         if episode == self.max_episodes:
-            plt.savefig('./reward_plot.png', format='png', dpi=600, bbox_inches='tight')
+            plt.savefig('./4x4_plots/reward_plot.png', format='png', dpi=600, bbox_inches='tight')
         plt.tight_layout()
         plt.grid(True)
         plt.show()
@@ -174,7 +185,7 @@ class ModelTrainTest:
 
         # Only save as file if last episode
         if episode == self.max_episodes:
-            plt.savefig('./Loss_plot.png', format='png', dpi=600, bbox_inches='tight')
+            plt.savefig('./4x4_plots/Loss_plot.png', format='png', dpi=600, bbox_inches='tight')
         plt.tight_layout()
         plt.grid(True)
         plt.show()
