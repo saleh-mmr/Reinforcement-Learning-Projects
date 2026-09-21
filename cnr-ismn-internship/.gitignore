@@ -1,0 +1,92 @@
+# Python virtual environments
+.venv
+.venv-*
+venv/
+env/
+ENV/
+
+# Environment / credentials
+.env
+.env.*
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.pytest_cache/
+
+# IDEs and editors
+.idea/
+*.iml
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs and databases
+*.log
+*.sqlite3
+
+# Temporary and backup files
+*.swp
+*~
+*.bak
+
+# XML files and XML-temp/backups (included per request)
+*.xml
+*.xml-
+*.xml~
+
+# Jupyter
+.ipynb_checkpoints/
+
+# mypy / pylsp / pylintrc caches
+.mypy_cache/
+.pyre/
+
+# Misc
+.cache/
+.coverage
+
+# Node
+node_modules/
+
+# Ignore compiled binaries
+*.exe
+*.dll
+*.so
+*.dylib
+*.pkl
+# Ignore wheel and egg build artifacts
+*.egg
+*.whl
+*.pth
+*.pages
+*.png
+*.csv
+*.pdf
+*.docx
+# End of file
+

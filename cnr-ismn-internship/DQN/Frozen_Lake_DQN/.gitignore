@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE
+.idea/
+.vscode/
+
+# Outputs / results
+*.png
+*.pth
+*.csv
+results/
+outputs/
+
+# OS
+.DS_Store
+

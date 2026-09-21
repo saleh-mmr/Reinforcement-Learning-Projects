@@ -1,0 +1,22 @@
+{
+  "task_paths": {
+    "Task 1": "MC1_24365.pth",
+    "Task 2": "Mc2_24365.pth",
+    "Task 3": "MC3_24365.pth"
+  },
+  "analyzed_layers": [
+    "FC.0.weight",
+    "FC.2.weight",
+    "FC.4.weight",
+    "FC.6.weight"
+  ],
+  "entropy_bins": 64,
+  "sensitivity_bins": [
+    32,
+    64,
+    128
+  ],
+  "max_lag": 25,
+  "shuffled_controls": 100,
+  "random_seed": 2026
+}
