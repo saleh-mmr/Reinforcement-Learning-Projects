@@ -1,6 +1,3 @@
-Paste this into `README.md`:
-
-```markdown
 # Reinforcement Learning Projects
 
 A collection of reinforcement learning projects covering classical, deep, multi-agent, and neuromorphic approaches.
