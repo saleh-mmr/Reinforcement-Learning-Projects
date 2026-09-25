@@ -81,7 +81,7 @@ This project explores a progression from standard DQN training to sign-based opt
 
 Repository:
 
-https://github.com/saleh-mmr/Multi-weight-Molecular-Spintronic-Synapses-for-Reinforcement-Learning
+https://github.com/salehmmrezaei/Multi-weight-Molecular-Spintronic-Synapses-for-Reinforcement-Learning
 
 ## Topics
 
